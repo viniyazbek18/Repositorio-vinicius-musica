@@ -20,6 +20,10 @@ app.get("/pagina_principal", function (req, res) {
   res.render("pagina_principal");
 });
 
+app.get("/aula1", function (req, res) {
+  res.render("aula1");
+});
+
 app.listen(port, function () {
   console.log(`Example app listening on port ${port}!`);
 });
