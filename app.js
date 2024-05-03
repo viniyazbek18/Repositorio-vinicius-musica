@@ -16,6 +16,10 @@ app.get("/aula", function (req, res) {
   res.render("aula");
 });
 
+app.get("/pagina_principal", function (req, res) {
+  res.render("pagina_principal");
+});
+
 app.listen(port, function () {
   console.log(`Example app listening on port ${port}!`);
 });
