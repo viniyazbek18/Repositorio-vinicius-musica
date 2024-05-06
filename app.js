@@ -1,6 +1,9 @@
+const fs = require('fs');
+const path = require('path');
 const express = require("express");
 const app = express();
 const port = 3000;
+
 app.use(express.urlencoded({extended: true}));
 
 app.use("/", express.static("./node_modules/static/"))
@@ -34,6 +37,14 @@ app.get("/aula_professor", function (req, res) {
 
 app.get("/aula1_professor", function (req, res) {
   res.render("aula1_professor");
+});
+
+app.use("/", express.static("./views"))
+app.post('/criar_arquivo', (req, res) => {
+  fs.writeFile('./views/novo_arquivo.txt', 'Conteúdo do arquivo', err => {
+      if (err) throw err;
+      console.log('Arquivo criado com sucesso!');
+  });
 });
 
 app.listen(port, function () {

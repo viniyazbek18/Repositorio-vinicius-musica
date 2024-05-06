@@ -146,7 +146,7 @@
                 </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="/aula1">
+                      <a href="/aula1_professor">
                         <button type="button" class="botao-entrar">Entrar</button>
                       </a>
                     </div>
@@ -155,7 +155,18 @@
             </div>
     
     </main>
-    
+
+      <h1>Criar e Salvar Arquivos</h1>
+      <a href="\aula_professor">
+        <button id="criando_aula">Criar Arquivo</button>
+      </a>
+
+      <script>
+        document.getElementById('criando_aula').addEventListener('click', function() {
+          fetch('/criar_arquivo', { method: 'POST' });
+        });
+      </script>
+
     <footer class="text-body-secondary py-5">
       <div class="container">
         <p class="float-end mb-1">
