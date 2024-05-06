@@ -9,7 +9,7 @@ app.use("/", express.static("./node_modules/static/"))
 app.set('view engine', 'ejs');
 
 app.get("/", function (req, res) {
-  res.render("pagina_principal")
+  res.render("tela_inicio")
 });
 
 app.get("/aula", function (req, res) {
