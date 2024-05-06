@@ -52,12 +52,112 @@ app.post('/criar_arquivo', (req, res) => {
     fileName = `./views/aula${fileNumber}.ejs`;
   }
 
-  fs.writeFile(fileName, 'Conteúdo do arquivo', err => {
+  let newAulaBlock = `
+  <div class="aulas">
+  <div class="container">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="col">
+      <div class="card">    
+        <div class="card-body">
+          <img src="imagens/1694.jpg" alt="Descrição da Imagem" width="100" height="100">
+          <p class="card-text">Aula ${fileNumber}</p>
+        </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a href="/aula${fileNumber}">
+                <button type="button" class="botao-entrar">Entrar</button>
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Lê o conteúdo atual do arquivo aula.ejs
+  fs.readFile('./views/aula.ejs', 'utf8', function(err, data) {
+    if (err) throw err;
+
+    // Adiciona o novo bloco de aula ao conteúdo
+    let updatedContent = data.replace('</body>', newAulaBlock + '</body>');
+
+    // Reescreve o arquivo aula.ejs com o novo conteúdo
+    fs.writeFile('./views/aula.ejs', updatedContent, 'utf8', function(err) {
+      if (err) throw err;
+      console.log('Arquivo aula.ejs atualizado com sucesso!');
+    });
+  });
+
+
+  let htmlContent = `
+  <!DOCTYPE html>
+  <html lang="pt-BR">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Minha Plataforma Musical</title>
+      <link rel="stylesheet" type="text/css" href='CSS/aula1.css'>
+  </head>
+  <body>
+      <nav>
+          <h1>Bem-vindo à Minha Plataforma Musical</h1>
+          <ul>
+              <li><a href="/pagina_principal">Inicio</a></li>
+              <li><a href="/aula">Aulas</a></li>
+              <li><a href="#">Comunidade</a></li>
+          </ul>
+      </nav>
+
+      <section>
+          <div class="video">
+              <h2>Assista a uma aula de violão</h2>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/9cIWcoQONfk" frameborder="0" allowfullscreen></iframe>
+              <div>
+                  <a href="/aula">
+                      <button class="botao-voltar">Voltar</button>
+                  </a>
+              </div>
+          </div>
+      </section>
+
+      <main>
+          <section>
+              <h2>Conheça nossos cursos</h2>
+              <p>Explore nossas aulas de canto, teoria musical e muito mais.</p>
+          </section>
+
+          <section>
+              <h2>Compartilhe suas composições</h2>
+              <p>Publique suas partituras e receba feedback da comunidade.</p>
+          </section>
+      </main>
+
+      <footer>
+          <p>© 2024 Minha Plataforma Musical</p>
+      </footer>
+  </body>
+  </html>
+  `;
+
+  fs.writeFile(fileName, htmlContent, err => {
     if (err) throw err;
     console.log(`Arquivo ${fileName} criado com sucesso!`);
     fileNumber++;
   });
 });
+
+// Rota dinâmica para as aulas
+app.get('/aula/:id', (req, res) => {
+  let aulaId = req.params.id;
+  res.sendFile(__dirname + `/views/aula${aulaId}.ejs`);
+});
+
+
+for (let i = 2; i <= 12; i++) {
+  app.get("/aula" + i, function (req, res) {
+    res.render("aula" + i);
+  });
+}
 
 
 app.listen(port, function () {
