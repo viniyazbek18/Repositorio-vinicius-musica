@@ -40,12 +40,25 @@ app.get("/aula1_professor", function (req, res) {
 });
 
 app.use("/", express.static("./views"))
+let fileNumber = 2;
+
 app.post('/criar_arquivo', (req, res) => {
-  fs.writeFile('./views/novo_arquivo.txt', 'Conteúdo do arquivo', err => {
-      if (err) throw err;
-      console.log('Arquivo criado com sucesso!');
+  let fileName = `./views/aula${fileNumber}.ejs`;
+
+  // Verifica se o arquivo já existe
+  while (fs.existsSync(fileName)) {
+    console.log(`Arquivo ${fileName} já existe.`);
+    fileNumber++;
+    fileName = `./views/aula${fileNumber}.ejs`;
+  }
+
+  fs.writeFile(fileName, 'Conteúdo do arquivo', err => {
+    if (err) throw err;
+    console.log(`Arquivo ${fileName} criado com sucesso!`);
+    fileNumber++;
   });
 });
+
 
 app.listen(port, function () {
   console.log(`Example app listening on port ${port}!`);
