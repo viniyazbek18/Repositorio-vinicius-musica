@@ -24,6 +24,18 @@ app.get("/aula1", function (req, res) {
   res.render("aula1");
 });
 
+app.get("/pagina_principal_professor", function (req, res) {
+  res.render("pagina_principal_professor");
+});
+
+app.get("/aula_professor", function (req, res) {
+  res.render("aula_professor");
+});
+
+app.get("/aula1_professor", function (req, res) {
+  res.render("aula1_professor");
+});
+
 app.listen(port, function () {
   console.log(`Example app listening on port ${port}!`);
 });
