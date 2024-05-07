@@ -96,18 +96,18 @@ app.post('/criar_arquivo', (req, res) => {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Minha Plataforma Musical</title>
-      <link rel="stylesheet" type="text/css" href='CSS/aula1.css'>
+      <link rel="stylesheet" type="text/css" href="CSS/aula1.css">
   </head>
   <body>
       <nav>
           <h1>Bem-vindo à Minha Plataforma Musical</h1>
           <ul>
-              <li><a href="/pagina_principal">Inicio</a></li>
+              <li><a href="/pagina_principal">Início</a></li>
               <li><a href="/aula">Aulas</a></li>
               <li><a href="#">Comunidade</a></li>
           </ul>
       </nav>
-
+  
       <section>
           <div class="video">
               <h2>Assista a uma aula de violão</h2>
@@ -116,27 +116,38 @@ app.post('/criar_arquivo', (req, res) => {
                   <a href="/aula">
                       <button class="botao-voltar">Voltar</button>
                   </a>
+                  <button class="botao-alterar-link" onclick="alterarLinkAula()">Alterar Link da Aula</button>
               </div>
           </div>
       </section>
-
+  
+      <script>
+          function alterarLinkAula() {
+              const novoLink = prompt("Insira o novo link da aula:");
+              if (novoLink) {
+                  // Atualizar o atributo "src" do iframe com o novo link
+                  document.querySelector("iframe").src = novoLink;
+              }
+          }
+      </script>
+      
       <main>
           <section>
               <h2>Conheça nossos cursos</h2>
               <p>Explore nossas aulas de canto, teoria musical e muito mais.</p>
           </section>
-
+  
           <section>
               <h2>Compartilhe suas composições</h2>
               <p>Publique suas partituras e receba feedback da comunidade.</p>
           </section>
       </main>
-
+  
       <footer>
           <p>© 2024 Minha Plataforma Musical</p>
       </footer>
   </body>
-  </html>
+  </html>  
   `;
 
   fs.writeFile(fileName, htmlContent, err => {
