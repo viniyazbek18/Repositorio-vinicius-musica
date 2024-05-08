@@ -90,6 +90,7 @@ app.post('/criar_arquivo', (req, res) => {
 
 
   let htmlContent = `
+
   <!DOCTYPE html>
   <html lang="pt-BR">
   <head>
@@ -111,25 +112,43 @@ app.post('/criar_arquivo', (req, res) => {
       <section>
           <div class="video">
               <h2>Assista a uma aula de violão</h2>
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/9cIWcoQONfk" frameborder="0" allowfullscreen></iframe>
+              <iframe width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
               <div>
                   <a href="/aula">
                       <button class="botao-voltar">Voltar</button>
                   </a>
-                  <button class="botao-alterar-link" onclick="alterarLinkAula()">Alterar Link da Aula</button>
+              <div>
+                <label for="novoLink">Novo link do YouTube:</label>
+                <input type="text" id="novoLink" placeholder="Cole o novo link aqui">
+                <button onclick="trocarLink()">Trocar</button>
+              </div>              
               </div>
           </div>
       </section>
   
       <script>
-          function alterarLinkAula() {
-              const novoLink = prompt("Insira o novo link da aula:");
-              if (novoLink) {
-                  // Atualizar o atributo "src" do iframe com o novo link
-                  document.querySelector("iframe").src = novoLink;
-              }
-          }
-      </script>
+        // Carrega o link do vídeo salvo no localStorage
+        function carregarLinkSalvo() {
+            const linkSalvo = localStorage.getItem('videoLink');
+            if (linkSalvo) {
+                const iframe = document.querySelector('.video iframe');
+                iframe.src = linkSalvo;
+            }
+        }
+    
+        // Chama a função ao carregar a página
+        window.addEventListener('load', carregarLinkSalvo);
+        
+        function trocarLink() {
+            const novoLink = document.getElementById('novoLink').value;
+            const iframe = document.querySelector('.video iframe');
+            iframe.src = novoLink;
+    
+            // Salva o novo link no localStorage
+            localStorage.setItem('videoLink', novoLink);
+        }
+    </script>
+    
       
       <main>
           <section>
