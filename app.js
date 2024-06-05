@@ -15,6 +15,11 @@ app.get("/", function (req, res) {
   res.render("tela_inicio")
 });
 
+app.get('/tela_inicio', function(req, res) {
+  res.render('tela_inicio');
+});
+
+
 app.get("/aula", function (req, res) {
   res.render("aula");
 });
@@ -105,7 +110,7 @@ app.post('/criar_arquivo', (req, res) => {
           <ul>
               <li><a href="/pagina_principal">Início</a></li>
               <li><a href="/aula">Aulas</a></li>
-              <li><a href="#">Comunidade</a></li>
+              <li><a href="/tela_inicio">Voltar</a></li>
           </ul>
       </nav>
   
